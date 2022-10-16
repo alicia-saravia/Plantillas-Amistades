@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amistades</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/estilo.css') }}">
+    
+</head>
+<body>
+    <h1 class="titulo">Bienvenidos Amigos</h1>
+<div class = "d-flex flex-row justify-content-around">
+    <div class="w-25">
+        <div class="container">
+            <h2>Amistades</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th>Usuario</th>
+                    <th>Amigos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for usuario in amistades%}
+                    <tr>
+                        <td>{{usuario['nombre']}} {{usuario['apellido']}}</td>
+                        <td>{{usuario['amigos.nombre']}} {{usuario['amigos.apellido']}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="w-25">
+        <h2>Agregar Usuario</h2>
+        <form action="/crear_amigo" method="post">
+            <div class="form-group row">
+                <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Nombre</label>
+                <div class="col-sm-10">
+                    <input type="text" name="nombre" id="">
+                </div>
+            </div>
+            <div class="form-group row">
+                    <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Apellido</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="apellido" id="">
+                    </div>
+            </div>
+            <input type="submit" class="btn btn-danger" value="Agregar">
+        </form>
+        <div class="mt-5">
+            <h2>Crear Amistad</h2>
+            <form action="/crear_amistad" method = "post">
+                <div class="form-group row">
+                    <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Usuario</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" name="usuario_id">
+                            {% for usuario in usuarios%}
+                                <option value="{{usuario.id}}">{{usuario.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                        <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Amigo</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" name="amigo_id">
+                                {% for usuario in usuarios%}
+                                <option value="{{usuario.id}}">{{usuario.nombre}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                </div>
+                <input type="submit" class="btn btn-danger mt-2" value="Crear">
+            </form>  
+        </div>
+    </div>
+</div>
+    
+</body>
+</html>
